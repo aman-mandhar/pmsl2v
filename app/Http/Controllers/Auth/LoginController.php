@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,7 +27,39 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //  protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected function authenticated()
+    {
+        if(Auth::user()->user_role == 0)
+        {
+        return redirect('users/dashboard')->with('status','Welcome to Dashboard');
+        }
+        if(Auth::user()->user_role == 1)
+        {
+        return redirect('admin/dashboard')->with('status','Welcome to Dashboard');
+        }
+        if(Auth::user()->user_role == 2)
+        {
+        return redirect('stores/dashboard')->with('status','Welcome to Dashboard');
+        }
+        if(Auth::user()->user_role == 3)
+        {
+        return redirect('warehouses/dashboard')->with('status','Welcome to Dashboard');
+        }
+        if(Auth::user()->user_role == 4)
+        {
+        return redirect('subwarehouses/dashboard')->with('status','Welcome to Dashboard');
+        }
+        if(Auth::user()->user_role == 5)
+        {
+        return redirect('employees/dashboard')->with('status','Welcome to Dashboard');
+        }
+        else
+        {
+        return redirect('welcome');
+        }
+    }
 
     /**
      * Create a new controller instance.
