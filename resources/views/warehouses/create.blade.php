@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -8,14 +7,14 @@
                     <div class="card-header">Create Retail Store</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('warehouses.store') }}">
+                        <form method="POST" action="{{ route('retails.store') }}">
                             @csrf
 
                             <div class="form-group">
                                 <label for="user_id">User:</label>
                                 <select name="user_id" id="user_id" class="form-control" required>
                                     @foreach($users as $user)
-                                        @if($user->user_role == 3)
+                                        @if($user->user_role == 2)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endif
                                     @endforeach
@@ -23,7 +22,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="store_add">Warehouse Address:</label>
+                                <label for="store_add">Store Address:</label>
                                 <input type="text" name="store_add" id="store_add" class="form-control" required>
                             </div>
 

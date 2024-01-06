@@ -1,4 +1,4 @@
-@extends('layouts.warehouse')
+@extends('layouts.admin')
 @section('content')
-warehouse Dashboard
+Store Dashboard
 @endsection

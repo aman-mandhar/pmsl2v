@@ -28,7 +28,25 @@
                 </select>
             </div>
 
-            <!-- Add other form fields -->
+            <div class="form-group">
+                <label for="store_add">Store Address:</label>
+                <input type="text" name="store_add" class="form-control" value="{{ $retail->store_add }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" name="city" class="form-control" value="{{ $retail->city }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="manager">Manager:</label>
+                <input type="text" name="manager" class="form-control" value="{{ $retail->manager }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile_no">Mobile No:</label>
+                <input type="text" name="mobile_no" class="form-control" value="{{ $retail->mobile_no }}" required>
+            </div>
 
             <button type="submit" class="btn btn-primary">Update Retail Store</button>
         </form>
