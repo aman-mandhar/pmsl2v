@@ -145,6 +145,19 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#auth">
+            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <span class="menu-title">Business Promoter</span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('bps.index') }}"> Business Promoter List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('bps.create') }}"> Add New Business Promoter </a></li>
+            </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#auth">
             <i class="mdi mdi-account menu-icon"></i>
             <span class="menu-title">Users</span>
             <i class="menu-arrow"></i>

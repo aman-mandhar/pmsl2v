@@ -104,6 +104,13 @@ Route::put('/subwarehouses/{subwarehouse}', [SubwarehouseController::class, 'upd
 Route::delete('/subwarehouses/{subwarehouse}', [SubwarehouseController::class, 'destroy'])->name('subwarehouses.destroy');
 
 
+Route::get('/bps', [App\Http\Controllers\BpController::class, 'index'])->name('bps.index');
+Route::get('/bps/create', [App\Http\Controllers\BpController::class, 'create'])->name('bps.create');
+Route::post('/bps', [App\Http\Controllers\BpController::class, 'store'])->name('bps.store');
+Route::get('/bps/{bp}/edit', [App\Http\Controllers\BpController::class, 'edit'])->name('bps.edit');
+Route::put('/bps/{bp}', [App\Http\Controllers\BpController::class, 'update'])->name('bps.update');
+Route::delete('/bps/{bp}', [App\Http\Controllers\BpController::class, 'destroy'])->name('bps.destroy');
+Route::get('/bps/search', 'BpController@search');
 
 
 
