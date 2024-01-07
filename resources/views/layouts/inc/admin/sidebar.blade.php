@@ -23,11 +23,11 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.index' )}}"> Item List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.create') }}"> Add Item</a></li>
                 <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ '/items/categories' }}"> Add Category</a></li>
                 <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ '/items/subcategories' }}"> Add Sub-Category</a></li>
                 <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ '/items/variations' }}"> Add Variations</a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.create') }}"> Add Item</a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.index' )}}"> Item List </a></li>
             </ul>
         </div>
       </li>
@@ -40,8 +40,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.index') }}"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('stocks.index') }}"> List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('stocks.index') }}"> Stock List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.index') }}"> Add New Stock </a></li>
             </ul>
         </div>
       </li>
@@ -54,10 +54,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('warehouses.index') }}"> Warehouse List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('warehouses.create') }}"> Add New Warehouse </a></li>
             </ul>
         </div>
       </li>
@@ -70,10 +68,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('subwarehouses.index') }}"> Sub-Warehouse List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('subwarehouses.create') }}"> Add New Sub-Warehouse </a></li>
             </ul>
         </div>
       </li>
@@ -81,15 +77,13 @@
       <li class="nav-item">
         <a class="nav-link" href="#auth">
             <i class="mdi mdi-circle-outline menu-icon"></i>
-            <span class="menu-title">Stores</span>
+            <span class="menu-title">Retail Stores</span>
             <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Store List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.create') }}"> Add New Store </a></li>
             </ul>
         </div>
       </li>
