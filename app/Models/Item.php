@@ -15,7 +15,9 @@ class Item extends Model
         'prod_cat', 
         'prod_pic', 
         'type', 
-        'gst'
+        'gst',
+        'subcategory_id',
+        'variation_id',
     ];
 
     public function stocks()
