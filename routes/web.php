@@ -9,6 +9,12 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Contracts\Cache\Store;
+use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\RetailController;
+use App\Http\Controllers\SubwarehouseController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\Auth\RegisterController;
+
 
 
 
@@ -50,7 +56,7 @@ Route::get('/getReferralName', [UserController::class, 'getReferralName'])->name
 Auth::routes();
 
 Route::prefix('admin')->middleware(['auth', 'isAdmins'])->group(function () {
-    Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admindashboard');
+    Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admindashboard');
 });
 
 Route::prefix('stores')->middleware(['auth', 'isStores'])->group(function () {
@@ -74,7 +80,7 @@ Route::prefix('users')->middleware(['auth', 'isCustomers'])->group(function () {
 });
 
 
-use App\Http\Controllers\SubwarehouseController;
+
 
 // Display a listing of subwarehouses
 Route::get('/subwarehouses', [SubwarehouseController::class, 'index'])->name('subwarehouses.index');
@@ -99,8 +105,7 @@ Route::delete('/subwarehouses/{subwarehouse}', [SubwarehouseController::class, '
 
 
 
-use App\Http\Controllers\RetailController;
-use App\Models\Transfer;
+
 
 // Display a listing of retail stores
 Route::get('/retails', [RetailController::class, 'index'])->name('retails.index');
@@ -173,7 +178,7 @@ Route::get('/stocks/search', 'StockController@search');
 // Route::get('/stocks/transfer', [App\Http\Controllers\StockController::class, 'transfer'])->name('stocks.transfer');
 Route::post('/transfers', [App\Http\Controllers\StockController::class, 'transferStore'])->name('transfers.store');
 
-use App\Http\Controllers\SaleController;
+
 Route::get('/sales/new', [App\Http\Controllers\SaleController::class, 'new'])->name('sales.new');
 
 Route::get('/sales/new_user', [App\Http\Controllers\SaleController::class, 'new_user'])->name('sales.new_user');

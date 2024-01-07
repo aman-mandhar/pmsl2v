@@ -54,8 +54,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('warehouses.index') }}"> Warehouse List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('warehouses.create') }}"> Add New Warehouse </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Warehouse List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Add New Warehouse </a></li>
             </ul>
         </div>
       </li>
@@ -96,8 +96,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('merchants.index') }}"> Merchant List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('merchants.create') }}"> Add New Merchant </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Merchant List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Add New Merchant </a></li>
             </ul>
         </div>
       </li>
@@ -110,8 +110,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('employees.index') }}"> Employee List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('employees.create') }}"> Add New Employee </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Employee List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Add New Employee </a></li>
             </ul>
         </div>
       </li>
@@ -124,8 +124,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('transporters.index') }}"> Transporter List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('transporters.create') }}"> Add New Transporter </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Transporter List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Add New Transporter </a></li>
             </ul>
         </div>
       </li>
@@ -138,8 +138,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('deliveries.index') }}"> Delivery Partner List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('deliveries.create') }}"> Add New Delivery Partner </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Delivery Partner List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('retails.index') }}"> Add New Delivery Partner </a></li>
             </ul>
         </div>
       </li>
