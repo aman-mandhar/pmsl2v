@@ -50,7 +50,7 @@ Route::get('/getReferralName', [UserController::class, 'getReferralName'])->name
 Auth::routes();
 
 Route::prefix('admin')->middleware(['auth', 'isAdmins'])->group(function () {
-    Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admindashboard');
+    Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admindashboard');
 });
 
 Route::prefix('stores')->middleware(['auth', 'isStores'])->group(function () {
