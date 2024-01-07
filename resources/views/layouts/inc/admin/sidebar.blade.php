@@ -91,31 +91,13 @@
       <li class="nav-item">
         <a class="nav-link" href="#auth">
             <i class="mdi mdi-circle-outline menu-icon"></i>
-            <span class="menu-title">Reward Points</span>
-            <i class="menu-arrow"></i>
-        </a>
-        <div class="collapse" id="auth">
-            <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Referral Points </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> Customer Points </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Business Points </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Adjust </a></li>
-            </ul>
-        </div>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="#auth">
-            <i class="mdi mdi-circle-outline menu-icon"></i>
             <span class="menu-title">Merchants</span>
             <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('merchants.index') }}"> Merchant List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('merchants.create') }}"> Add New Merchant </a></li>
             </ul>
         </div>
       </li>
@@ -128,10 +110,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('employees.index') }}"> Employee List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('employees.create') }}"> Add New Employee </a></li>
             </ul>
         </div>
       </li>
@@ -144,10 +124,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('transporters.index') }}"> Transporter List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('transporters.create') }}"> Add New Transporter </a></li>
             </ul>
         </div>
       </li>
@@ -160,10 +138,8 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Add </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Edit </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Delete </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('deliveries.index') }}"> Delivery Partner List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('deliveries.create') }}"> Add New Delivery Partner </a></li>
             </ul>
         </div>
       </li>
@@ -177,6 +153,21 @@
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('users.create') }}"> Add New </a></li>
                 <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('users.index') }}"> List </a></li>
+            </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#auth">
+            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <span class="menu-title">Reward Points</span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Referral Points </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> Customer Points </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Business Points </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Adjust </a></li>
             </ul>
         </div>
       </li>
