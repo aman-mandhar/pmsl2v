@@ -16,61 +16,53 @@ use App\Models\ProductSubcategory;
 use App\Models\ProductVariation;
 use App\Models\Merchant;
 use App\Models\Vendor;
+use App\Models\Token;
+use Illuminate\Support\Facades\DB;
 
 
 
 class StockController extends Controller
 {
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+    
+        $stocks = Stock::with(['items' => function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%')
+                ->orWhereHas('categories', function ($categoryQuery) use ($search) {
+                    $categoryQuery->where('name', 'like', '%'.$search.'%')
+                        ->orWhereHas('subcategories', function ($subcategoryQuery) use ($search) {
+                            $subcategoryQuery->where('name', 'like', '%'.$search.'%')
+                                ->orWhereHas('variations', function ($variationQuery) use ($search) {
+                                    $variationQuery->where('color', 'like', '%'.$search.'%');
+                                });
+                        });
+                });
+        }]);
+    
+        $stocks = $stocks->paginate(10);
+    
+        return view('stocks.index', ['stocks' => $stocks]);
+    }
+
     public function index()
     {
-        $stocks = Stock::all();
-        $user = Auth::user();
-        $merchants = Merchant::all();
-        $vendors = Vendor::all();
-        $categories = ProductCategory::all();
-        $subcategories = ProductSubcategory::all();
-        $variations = ProductVariation::all();
-
-        return view('stocks.index', [
-            'stocks' => $stocks, 
-            'user' => $user, 
-            'merchants' => $merchants, 
-            'vendors' => $vendors]);
+        $stocks = Stock::with('items.categories.subcategories.variations')->get();
+        return view('stocks.index', ['stocks' => $stocks]);
     }
-    public function bizpro()
-    {
-        $stocks = $stocks = Stock::all();
-        $user = Auth::user();
-
-        return view('stocks.bizpro', ['stocks' => $stocks, 'user' => $user]);
-    }    
     
-
-    public function bill($stockId)
-    {    
-        return redirect()->route('stocks.index');
-    }
-
-
-    public function add($itemId)
+    public function add(Item $item)
     {
-        
-        $item = Item::findOrFail($itemId);
         $merchants = User::where('user_role', '=', '6')->get();
         $vendors = User::where('user_role', '=', '10')->get();
-        $category = ProductCategory::findOrFail($item->category_id)->get();
-        $subcategory = ProductSubcategory::findOrFail($item->category_id->subcategory_id)->get();
-        $variation = ProductVariation::findOrFail($item->category_id->subcategory_id->variation_id)->get();
-
+        
         return view('stocks.add', [
             'item' => $item,
             'merchants' => $merchants,
             'vendors' => $vendors,
-            'category' => $category,
-            'subcategory' => $subcategory,
-            'variation' => $variation,
-        ]);
+            ]);
     }
+   
 
     public function store(Request $request)
     {

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->decimal('mrp', 8, 2);
             $table->decimal('expences', 8, 2)->nullable();
             $table->decimal('discount', 8, 2)->nullable();
-            $table->decimal('subwarehouse_tokens', 8, 2);
-            $table->decimal('subwarehouse_ref_tokens', 8, 2);
+            $table->decimal('subwarehouse_tokens', 8, 2)->nullable();
+            $table->decimal('subwarehouse_ref_tokens', 8, 2)->nullable();
             $table->decimal('sale_price', 8, 2);
             $table->decimal('profit_before_discount_tokens', 8, 2);
             $table->decimal('profit_after_discount_tokens', 8, 2);

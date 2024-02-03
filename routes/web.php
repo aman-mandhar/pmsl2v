@@ -182,13 +182,13 @@ Route::get('/products/all', [ProductController::class, 'showAllData'])->name('pr
 
 // Stocks
 Route::get('/stocks', [App\Http\Controllers\StockController::class, 'index'])->name('stocks.index');
-Route::get('/stocks/add/{itemId}', [App\Http\Controllers\StockController::class, 'add'])->name('stocks.add');
+Route::get('/stocks/add/{item}', [App\Http\Controllers\StockController::class, 'add'])->name('stocks.add');
 Route::post('/stocks', [App\Http\Controllers\StockController::class, 'store'])->name('stocks.store');
 Route::get('/stocks/{stock}', [App\Http\Controllers\StockController::class, 'show'])->name('stocks.show');
 Route::get('/stocks/{stock}/edit', [App\Http\Controllers\StockController::class, 'edit'])->name('stocks.edit');
 Route::put('/stocks/{stock}', [App\Http\Controllers\StockController::class, 'update'])->name('stocks.update');
 Route::delete('/stocks/{stock}', [App\Http\Controllers\StockController::class, 'destroy'])->name('stocks.destroy');
-Route::get('/stocks/search', 'StockController@search')->name('stocks.search');
+Route::get('/stocks/search', [App\Http\Controllers\StockController::class, 'search'])->name('stocks.search');
 
 // Subwarehouse Stocks
 Route::get('/subwarehouses/stocks', [App\Http\Controllers\SubwarehouseStockController::class, 'index'])->name('subwarehouses.stocks.index');
