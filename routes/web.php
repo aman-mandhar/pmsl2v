@@ -142,8 +142,8 @@ Route::get('/get-subcategories/{category}', [ProductController::class, 'getSubca
 // Route to get variations based on the selected subcategory
 Route::get('/get-variations/{subcategory}', [ProductController::class, 'getVariations'])->name('get-variations');
 Route::post('/products/items', [ProductController::class, 'store'])->name('products.items.store');
-Route::get('/products/items/{id}/edit', [ProductController::class, 'edit'])->name('products.items.edit');
-Route::put('/products/items/{id}', [ProductController::class, 'update'])->name('products.items.update');
+Route::get('/products/items/{item}/edit', [ProductController::class, 'edit'])->name('products.items.edit');
+Route::put('/products/items/{item}', [ProductController::class, 'update'])->name('products.items.update');
 Route::delete('/products/items/{id}', [ProductController::class, 'destroy'])->name('products.items.destroy');
 Route::get('/products/search', [CategoryController::class, 'search'])->name('products.search');
 

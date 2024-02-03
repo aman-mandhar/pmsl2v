@@ -3,9 +3,8 @@
 @section('content')
     <div class="container">
         <h5>Add New Item</h5>
-        <form action="{{ route('products.items.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('products.items.store') }}" method="POST">
             @csrf
-            @Method('POST')
             <div class="form-group">
                 <label for="name">Product Name:</label>
                 <input type="text" name="name" id="name" class="form-control" placeholder="e.g. Dawat Rozana Basmati Rice 1 Kg " required>
@@ -16,12 +15,12 @@
             </div>
             <div class="form-group">
                 <label for="prod_pic">Upload Product Image:</label>
-                <input type="file" name="prod_pic" id="prod_pic" class="form-control-file" required>
+                <input type="file" name="prod_pic" id="prod_pic" class="form-control-file">
             </div>
             <div class="form-group">
                 <label for="type">Product Type:</label>
                 <select name="type" id="type" class="form-control" required>
-                    <option value="packet">Pack</option>
+                    <option value="Pack">Pack</option>
                     <option value="Loose">Loose</option>
                     <!-- Add other types as needed -->
                 </select>

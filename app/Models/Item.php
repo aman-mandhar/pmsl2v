@@ -5,10 +5,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Point; // Import the missing class 'Point'
 use App\Models\ProductCategory;
 use App\Models\ProductSubcategory;
 use App\Models\ProductVariation;
+use App\Models\Token;
 
 class Item extends Model
 {

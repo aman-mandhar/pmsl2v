@@ -97,43 +97,14 @@ class ProductController extends Controller
     return redirect()->route('products.items.index')->with('success', 'Product created successfully');
     }
 
-    public function subcat(Item $item)
+    public function show(Item $item)
     {
-        $subcategories = ProductSubcategory::where('category_id', $item->category_id)->get();
-        return view('products.items.subcat', compact('item', 'subcategories'));
-    }
-
-    public function storeSubcat(Request $request, Item $item)
-    {
-        $request->validate([
-            'subcategory_id' => 'required',
-        ]);
-
-        $item->update($request->all());
-
-        return redirect()->route('products.items.variation')->with('success', 'Subcategory added successfully');
-    }
-
-    public function variation(Item $item)
-    {
-        $variations = ProductVariation::where('subcategory_id', $item->subcategory_id)->get();
-        return view('products.items.variation', compact('item', 'variations'));
-    }
-
-    public function storeVariation(Request $request, Item $item)
-    {
-        $request->validate([
-            'variation_id' => 'required',
-        ]);
-
-        $item->update($request->all());
-
-        return redirect()->route('products.items.index')->with('success', 'Variation added successfully');
+        $product = Item::with('categories.subcategories.variations')->find($item->id);
+        return view('products.items.show', compact('item', 'product'));
     }
 
     public function edit(Item $item)
     {
-        $item = Item::find($item->id);
         $categories = ProductCategory::all();
         $subcategories = ProductSubcategory::all();
         $variations = ProductVariation::all();
@@ -144,11 +115,16 @@ class ProductController extends Controller
 
     public function update(Request $request, Item $item)
     {
+        if ($request == null){
+            return redirect()->route('products.items.index')->with('error', 'Product not created');
+        }
+        else if($request != null)
+        {
         $request->validate([
             'name' => 'required',
             'description' => 'nullable',
             'prod_pic' => 'nullable',
-            'type' => 'required'|'in:Pack,Loose',
+            'type' => 'required|in:Pack,Loose',
             'gst' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
@@ -156,7 +132,7 @@ class ProductController extends Controller
             'token_id' => 'nullable',
             'prod_pic' => 'nullable',
         ]);
-
+        }
         $item->update($request->all());
 
         return redirect()->route('products.items.index')->with('success', 'Product updated successfully');
