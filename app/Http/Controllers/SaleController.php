@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\ProductCategory;
+use App\Models\ProductSubcategory;
 use App\Models\Stock;
 use App\Models\Transfer;
 use App\Models\User;
@@ -27,9 +29,11 @@ class SaleController extends Controller
     public function new(Request $request)
 {
     $search = $request->get('search');
-    if ($search != null) {
+    if ($search != null) 
+    {
         $user = User::where('mobile_number', '=', $search)->get();
-        if ($user->isEmpty()) {
+        if ($user->isEmpty()) 
+        {
             $cities = [
                 'Amritsar',
                 'Ludhiana',
@@ -48,65 +52,62 @@ class SaleController extends Controller
                 'Rupnagar',
                 'Gurdaspur',
                 // Add more cities as needed
-        ];
-            return view('sales.new_user', ['search' => $search], ['cities' => $cities], ['search' => $search]);
+            ];
+            return view('sales.new_user', ['search' => $search], ['cities' => $cities], ['user' => $user]);
         }
-        else {
-            $user = User::where('mobile_number', '=', $search)->first();
+        else 
+        {
             $items = Item::all();
             $stocks = Stock::all();
             return view('sales.create', ['user' => $user, 'items' => $items, 'stocks' => $stocks]);
         }
-        $items = Item::all();
-        $stocks = Stock::all();
-        return view('sales.create', ['users' => $user], ['items' => $items], ['stocks' => $stocks]);
-    }
-        elseif 
-        
-        ($search == null) {
-        return view('sales.new');
-    } 
-        else {
-        $cities = [
-            'Amritsar',
-            'Ludhiana',
-            'Jalandhar',
-            'Patiala',
-            'Bathinda',
-            'Pathankot',
-            'Mohali',
-            'Hoshiarpur',
-            'Moga',
-            'Firozpur',
-            'Sangrur',
-            'Barnala',
-            'Faridkot',
-            'Fatehgarh Sahib',
-            'Rupnagar',
-            'Gurdaspur',
-            // Add more cities as needed
-        ];
+    }    
+    else  
+        {
+            $cities = [
+                'Amritsar',
+                'Ludhiana',
+                'Jalandhar',
+                'Patiala',
+                'Bathinda',
+                'Pathankot',
+                'Mohali',
+                'Hoshiarpur',
+                'Moga',
+                'Firozpur',
+                'Sangrur',
+                'Barnala',
+                'Faridkot',
+                'Fatehgarh Sahib',
+                'Rupnagar',
+                'Gurdaspur',
+                // Add more cities as needed
+            ];
+           
+            return view('sales.new_user', ['cities' => $cities], ['search' => $search]);    
        
-        return view('sales.new_user', ['cities' => $cities], ['search' => $search]);
-    }
+    } 
+        
     
 }
-    public function create($userId)
+    public function create()
 {
-    $user = User::find($userId);
     $items = Item::all();
     $stocks = Stock::all();
+    $categories = ProductCategory::all();
+    $subcategories = ProductSubcategory::all();
     
-    return view('sales.create', ['user' => $user, 'items' => $items, 'stocks' => $stocks]);
+    return view('sales.create', ['items' => $items, 'stocks' => $stocks, 'categories' => $categories, 'subcategories' => $subcategories]); 
 }
 
-    public function bill($stockId, $userId)
+    public function bill(Request $request)
 {
-    $stock = Stock::find($stockId);
-    $user = User::find($userId);
+     
+    $user = User::Where('mobile_number', '%=' , $request)->first();
     $items = Item::all(); 
+    $stocks = Stock::all();
 
-    return view('sales.bill', ['stock' => $stock, 'users' => $user, 'items' => $items]);
+    return view('sales.bill', ['stock', 'user', 'items']);
 
 }
 

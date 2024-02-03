@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
 
     <title>{{ config('app.name', 'ZK Superstore') }}</title>
 
@@ -24,7 +25,14 @@
     <!-- Style -->
     
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+    
+    <script src="{{ asset('admin/js/dynamicDropdowns.js') }}"></script>
+    
+
 @livewireStyles  
 </head>
 <body>

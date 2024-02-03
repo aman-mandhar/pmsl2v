@@ -5,35 +5,40 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Merchant;
+use App\Models\Vendor;
 
 class Stock extends Model
 {
     protected $fillable = [
         'item_id',
-        'subcategory_id',
-        'variation_id',
-        'measure',
-        'tot_no_of_items',
+        'weight',
+        'qty',
         'pur_value',
         'gst',
         'mrp',
+        'expences',
+        'discount',
+        'subwarehouse_tokens',
+        'subwarehouse_ref_tokens',
         'sale_price',
-        'tot_points',
-        'prod_cat',
-        'type',
+        'profit_before_discount_tokens',
+        'profit_after_discount_tokens',
+        'profit_after_tokens',    
         'pur_bill_pic',
         'pur_bill_no',
         'pur_date',
-        'merchant',
+        'merchant_id',
+        'vendor_id',
         'qrcode',
         'barcode',
         'batch_no',
         'mfg_date',
         'exp_date',
-        'status',
         'remarks',
         'user_id',
     ];
+      
     
     // Relationships
     
@@ -47,14 +52,14 @@ class Stock extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function subcategory()
+    public function merchant()
     {
-        return $this->belongsTo(ProductSubcategory::class, 'subcategory_id');
+        return $this->belongsTo(Merchant::class, 'merchant_id');
     }
 
-    public function variation()
+    public function vendor()
     {
-        return $this->belongsTo(ProductVariation::class, 'variation_id');
-    
+        return $this->belongsTo(Vendor::class, 'vendor_id');
     }
+
 }

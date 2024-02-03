@@ -12,7 +12,7 @@
                     </td>
                     <td>
                         <img src="{{ asset($item->prod_pic) }}" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover;"><br>
-                        <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('products.items.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                     </tr>
             </tbody>
         </table>

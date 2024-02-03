@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bp', function (Blueprint $table) {
+        Schema::create('bps', function (Blueprint $table) {
                 $table->id(); // Auto-increment ID
                 $table->unsignedBigInteger('user_id');
-                $table->string('add'); // Warehouse Address
+                $table->unsignedBigInteger('ref_id')->default('1');
+                $table->string('add'); // Address
                 $table->string('city');
                 $table->string('promoter_name');
                 $table->string('mobile_no', 10); // Mobile Number
@@ -23,6 +24,7 @@ return new class extends Migration
     
                 // user_id is a foreign key referencing users table:
                 $table->foreign('user_id')->references('id')->on('users');
+                $table->foreign('ref_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bp');
+        Schema::dropIfExists('bps');
     }
 };

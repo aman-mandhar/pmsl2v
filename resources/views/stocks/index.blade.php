@@ -54,7 +54,7 @@
                             </td>                    
                         @endif
                         <td>
-                            <a href="{{ route('stocks.bill', $stock->id) }}" class="btn btn-warning">Sale</a>
+                            <a href="javascript:void(0)" onclick="addToCart({{ $stock->id}})" class="btn btn-warning">Add to Cart</a>
                             @if ($user->user_role == 2)
                             <a href="{{ route('stocks.transfer', $stock->id) }}" class="btn btn-warning">Required</a>
                             @elseif ($user->user_role == 3)
@@ -83,7 +83,7 @@
         </table>
 
         {{-- Add Item Button --}}
-        <a href="{{ route('items.create') }}" class="btn btn-success">Add Item</a>
+        <a href="{{ route('products.items.create') }}" class="btn btn-success">Add Item</a>
     </div>
 
     <script>
@@ -96,5 +96,39 @@
                 row.style.display = itemName.includes(searchValue) ? 'table-row' : 'none';
             });
         });
+
+      
     </script>
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        function addToCart(stockId) {
+            $.ajax({
+                url: '{{ route('cart.add') }}',
+                type: 'POST',
+                data: {
+                    stock_id: stockId
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(response) {
+                    alert(response.message);
+                },
+                error:function(error) {
+                    alert(error.message);
+                }
+            });
+            //alert(stockId);
+            // Send a POST request to the URL
+            //axios.post('/sales/cart', {
+            //    stock_id: stockId
+            //})
+            //.then(function (response) {
+            //    // Reload the page
+            //    location.reload();
+            //});
+        }
+    </script>
+    @endsection

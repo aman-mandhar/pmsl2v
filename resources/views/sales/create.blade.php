@@ -1,24 +1,30 @@
 @extends('layouts.admin')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 @section('content')
 <table class="table">
     <thead>
         <tr>
             <th>Image</th>
-            <th>Name</th>
+            <th>Item Detail (Name, Description)</th>
             <th>Sale Price</th>
-            <th>Actions</th>
+            <th>Customer's Points</th>
+            <th>Discount</th>
+            <th>Quantity / Weight / Length</th>
+            <th>GST</th>
+            <th>Net Amount</th>
+            <th>Action</th>            
         </tr>
     </thead>
     <tbody>
+        <form action="{{ route('cart.add') }}" method="POST">
+            @csrf
         @forelse($stocks as $stock)
-            @if ($stock->item && $stock->item->prod_cat != 'Services')
             <tr class="item-row">
                 <td>
                     @php
                         $img = $stock->item->prod_pic; // Assuming there is a relationship between Stock and Item
                     @endphp
-                        <img src="{{ asset($img) }}" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover;">
-
+                    <img src="{{ asset($img) }}" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover;">
                 </td>
                 <td>
                     @php
@@ -28,33 +34,63 @@
                     {{ $name }}
                     <br>
                     <small>{{ $description }}</small>
+                    <br>
                 </td>
                 <td>
-                    <a href="{{ route('sales.bill', $stock->id, $user->id) }}" class="btn btn-warning">Sale</a>
-                    @if ($user->user_role == 2)
-                    <a href="{{ route('stocks.transfer', $stock->id) }}" class="btn btn-warning">Required</a>
-                    @elseif ($user->user_role == 3)
-                    <a href="{{ route('stocks.transfer', $stock->id) }}" class="btn btn-warning">Add Stock</a>
-                    @elseif ($user->user_role == 4)
-                    <a href="{{ route('stocks.transfer', $stock->id) }}" class="btn btn-warning">Required</a>
+                    @php
+                        $sale_price = $stock->sale_price; // Assuming there is a relationship between Stock and Item
+                    @endphp
+                    {{ $sale_price }}   
+                </td>
+                <td>
+                    @php
+                        $points = $stock->points; // Assuming there is a relationship between Stock and Item
+                    @endphp
+                    {{ 0.10 * $stock->tot_points }}
+                </td>
+                <td>
+                    @php
+                        $mrp = $stock->mrp; // Assuming there is a relationship between Stock and Item
+                        $sale_price = $stock->sale_price; // Assuming there is a relationship between Stock and Item
+                    @endphp
+                    {{ $mrp - $sale_price }}
+                </td>
+                <td>
+                    @php
+                        $type = $stock->item->type; // Assuming there is a relationship between Stock and Item
+                    @endphp
+                    @if ($type === "Packet")
+                        <input type="number" name="quantity" id="quantity" min="1" class="form-control" placeholder="Quantity">
                     @else
-                    <a href="{{ route('stocks.add', $stock->id) }}" class="btn btn-warning">Add Stock</a>
+                        <input type="number" name="measure" id="measure" class="form-control" placeholder="Weight in kg only">
                     @endif
-                    <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-warning">Edit</a>
-                    <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                    </form>
+                </td>
+                <td>
+                    @php
+                        $sale_price = $stock->sale_price; // Assuming there is a relationship between Stock and Item
+                        $gst = $stock->item->gst; // Assuming there is a relationship between Stock and Item
+                    @endphp
+                    {{ $sale_price * ($gst/100) }}
+                </td>
+                <td>
+                    @php
+                        $sale_price = $stock->sale_price; // Assuming there is a relationship between Stock and Item
+                        $gst = $stock->item->gst; // Assuming there is a relationship between Stock and Item
+                    @endphp
+                    {{ $sale_price + ($sale_price * ($gst/100)) }}  
+                </td>
+                <td>
+                    <a href="{{route('cart.add')}}" class="btn btn-warning">Add to Cart</a>
                 </td>
             </tr>
-            @endif
         @empty
             <!-- Handle the case where there are no stocks -->
             <tr>
                 <td colspan="9">No stocks found</td>
             </tr>
-        @endforelse 
+        @endforelse
+        </form> 
     </tbody>
 </table>
 @endsection
+

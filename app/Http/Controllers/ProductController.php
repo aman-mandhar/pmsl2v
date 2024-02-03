@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Item;
+use App\Models\ProductCategory;
+use App\Models\ProductSubcategory;
+use App\Models\ProductVariation;
+use App\Models\Token;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
+class ProductController extends Controller
+{
+    public function index()
+    {
+        $items = Item::all();
+        return view('products.items.index', compact('items'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $items = DB::table('items')->where('name', 'like', '%'.$search.'%')->paginate(10);
+        return view('products.items.index', compact('items'));
+    }
+
+    public function showAllData()
+    {
+        // Fetch all categories with their subcategories and variations
+        $items = Item::with('categories.subcategories.variations')->get();
+
+        return view('products.all', compact('items'));
+    }
+
+    public function getSubcategories($category)
+    {
+        $subcategories = ProductSubcategory::where('category_id', $category)->get();
+
+        $options = '<option value="">Select Sub-Category</option>';
+        foreach ($subcategories as $subcategory) {
+            $options .= '<option value="' . $subcategory->id . '">' . $subcategory->name . '</option>';
+        }
+
+        return $options;
+    }
+
+    public function getVariations($subcategory)
+    {
+        $variations = ProductVariation::where('subcategory_id', $subcategory)->get();
+
+        $options = '<option value="">Select Variation</option>';
+        foreach ($variations as $variation) {
+            $options .= '<option value="' . $variation->id . '">' . $variation->color . ' - ' . $variation->size . '</option>';
+        }
+
+        return $options;
+    }
+
+
+    public function create()
+    {
+        $categories = ProductCategory::all();
+        $tokens = Token::all();
+
+        return view('products.items.create', compact('categories','tokens'));
+    }
+
+    public function store(Request $request)
+    {
+    if ($request == null){
+        return redirect()->route('products.items.index')->with('error', 'Product not created');
+    }
+    else if($request != null)
+    {
+    $request->validate([
+        'name' => 'required',
+        'description' => 'nullable',
+        'prod_pic' => 'nullable',
+        'type' => 'required|in:Pack,Loose',
+        'gst' => 'required',
+        'category_id' => 'required',
+        'subcategory_id' => 'nullable',
+        'variation_id' => 'nullable',
+        'token_id' => 'nullable',
+    ]);
+
+    Item::create($request->all());
+    }
+    
+
+    return redirect()->route('products.items.index')->with('success', 'Product created successfully');
+    }
+
+    public function subcat(Item $item)
+    {
+        $subcategories = ProductSubcategory::where('category_id', $item->category_id)->get();
+        return view('products.items.subcat', compact('item', 'subcategories'));
+    }
+
+    public function storeSubcat(Request $request, Item $item)
+    {
+        $request->validate([
+            'subcategory_id' => 'required',
+        ]);
+
+        $item->update($request->all());
+
+        return redirect()->route('products.items.variation')->with('success', 'Subcategory added successfully');
+    }
+
+    public function variation(Item $item)
+    {
+        $variations = ProductVariation::where('subcategory_id', $item->subcategory_id)->get();
+        return view('products.items.variation', compact('item', 'variations'));
+    }
+
+    public function storeVariation(Request $request, Item $item)
+    {
+        $request->validate([
+            'variation_id' => 'required',
+        ]);
+
+        $item->update($request->all());
+
+        return redirect()->route('products.items.index')->with('success', 'Variation added successfully');
+    }
+
+    public function edit(Item $item)
+    {
+        $item = Item::find($item->id);
+        $categories = ProductCategory::all();
+        $subcategories = ProductSubcategory::all();
+        $variations = ProductVariation::all();
+        $tokens = Token::all();
+
+        return view('products.items.edit', compact('item', 'categories', 'subcategories', 'variations', 'tokens'));
+    }
+
+    public function update(Request $request, Item $item)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'prod_pic' => 'nullable',
+            'type' => 'required'|'in:Pack,Loose',
+            'gst' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'nullable',
+            'variation_id' => 'nullable',
+            'token_id' => 'nullable',
+            'prod_pic' => 'nullable',
+        ]);
+
+        $item->update($request->all());
+
+        return redirect()->route('products.items.index')->with('success', 'Product updated successfully');
+    }
+
+    
+
+
+    public function destroy(Item $item)
+    {
+        $item->delete();
+
+        return redirect()->route('products.items.index')->with('success', 'Product deleted successfully');
+    }
+}

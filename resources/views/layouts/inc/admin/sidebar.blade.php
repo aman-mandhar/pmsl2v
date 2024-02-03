@@ -9,10 +9,25 @@
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('sales.new') }}"  class="nav-link normal-navigation">
+        <a href=""  class="nav-link normal-navigation">
           <i class="mdi mdi-circle-outline menu-icon"></i>
           <h5>New Sale</h5>
         </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#auth">
+            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <span class="menu-title">Tokens Distribution</span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('tokens.index') }}"> List of Token System </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('tokens.create') }}"> Add New System </a></li>
+                
+            </ul>
+        </div>
       </li>
 
       <li class="nav-item">
@@ -23,11 +38,11 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ '/items/categories' }}"> Add Category</a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ '/items/subcategories' }}"> Add Sub-Category</a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ '/items/variations' }}"> Add Variations</a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.create') }}"> Add Item</a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.index' )}}"> Item List </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('products.categories.create') }}"> Add Category</a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('products.subcategories.create') }}"> Add Sub-Category</a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('products.variations.create') }}"> Add Variations</a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('products.items.create') }}"> Add Item</a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('products.items.index')}}"> Item List </a></li>
             </ul>
         </div>
       </li>
@@ -41,7 +56,7 @@
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('stocks.index') }}"> Stock List </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('items.index') }}"> Add New Stock </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('products.items.index') }}"> Add New Stock </a></li>
             </ul>
         </div>
       </li>
@@ -177,10 +192,10 @@
         </a>
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="auth\register"> Referral Points </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/register.html"> Customer Points </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Business Points </a></li>
-                <li class="nav-item"> <a class="nav-link normal-navigation" href="pages/samples/lock-screen.html"> Adjust </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('wallets.index')}}"> Referral Points </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('wallets.index')}}"> Customer Points </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('wallets.index')}}"> Business Points </a></li>
+                <li class="nav-item"> <a class="nav-link normal-navigation" href="{{ route('wallets.index')}}"> Adjust </a></li>
             </ul>
         </div>
       </li>

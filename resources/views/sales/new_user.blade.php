@@ -7,7 +7,7 @@
         @csrf
         <div class="col-md-6">
             <select id="city" class="form-control @error('city') is-invalid @enderror" name="city" required>
-                <option value="">Select nearest City</option>
+                <option value="Select Location">Select nearest City</option>
                 @foreach ($cities as $city)
                 <option value="{{ $city }}" {{ old('city') == $city ? 'selected' : '' }}>{{ $city }}</option>
                 @endforeach

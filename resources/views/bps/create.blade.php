@@ -20,6 +20,11 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="ref_id">Referrer:</label>
+                                <input type="text" name="ref_id" id="ref_id" class="form-control" value="{{ $ }}" readonly>
+                            </div>
                             
                             <div class="form-group">
                                 <label for="bps_name">Business Promoter Name:</label>

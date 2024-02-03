@@ -8,6 +8,7 @@ class Bp extends Model
 {
     protected $fillable = [
         'user_id',
+        'ref_id',
         'add',
         'city',
         'promoter_name',
@@ -19,5 +20,10 @@ class Bp extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function ref()
+    {
+        return $this->belongsTo(User::class, 'ref_id');
     }
 }
