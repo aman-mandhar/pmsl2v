@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->default('Not Set');
-            $table->integer('mobile_number', 10)->unique();
-            $table->integer('ref_mobile_number', 10)->default('0000000000');
+            $table->string('mobile_number', 10)->unique();
+            $table->string('ref_mobile_number', 10)->default('0000000000');
             $table->tinyInteger('user_role')->default(0);  
             /**
             * USER ROLES
@@ -40,6 +40,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        
     }
 
     /**

@@ -5,62 +5,83 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use App\Models\City;
+use App\Http\Middleware\AdminMiddleware;
+
 
 
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
     public function index()
     {
         $users = User::all(); // Retrieve all users from the users table
         return view('users.index', ['users' => $users]); // Pass users data to the view
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
     public function create()
     {
-        $cities = [
-            'Amritsar',
-            'Ludhiana',
-            'Jalandhar',
-            'Patiala',
-            'Bathinda',
-            'Pathankot',
-            'Mohali',
-            'Hoshiarpur',
-            'Moga',
-            'Firozpur',
-            'Sangrur',
-            'Barnala',
-            'Faridkot',
-            'Fatehgarh Sahib',
-            'Rupnagar',
-            'Gurdaspur',
-            // Add more cities as needed
-        ];
+        $cities = City::all();
         return view('users.create', ['cities' => $cities]);
     }
 
-    public function store(Request $request)
-    {
-        {
-            // Validate the form data
-            $validatedData = $request->validate([
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+   
+     public function store(Request $request)
+     {
+         // Validate the request data
+         $request->validate([
+            
                 'name' => 'required|string|max:255',
-                'mobile_number' => 'required|string|regex:/^[0-9]{10}$/|unique:users,mobile_number',
-                'ref_mobile_number' => 'required|string|regex:/^[0-9]{10}$/',
+                'mobile_number' => 'required|string|unique:users,mobile_number|digits:10',
+                'ref_mobile_number' => 'required|string|exists:users,mobile_number,digits:10',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
-                'user_role' => 'required|integer|in:0,1,2,3,4,5,6,7,8,9', // Use the allowed integer values
-                'city' => 'required|string|max:255',
+                'user_role' => 'required|integer|in:0,1,2,3,4,5,6,7,8,9,10', // Use the allowed integer values
+                'city' => 'required|integer|exists:cities,id', // Use the allowed integer values    
                 'gst_no' => 'nullable|string|max:255',
             ]);
     
             // Create the new user
-            $user = User::create($validatedData);
+            // Create a new user instance
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'mobile_number' => $request->mobile_number,
+            'ref_mobile_number' => $request->ref_mobile_number,
+            'city' => $request->city,
+            'user_role' => $request->user_role,
+            'gst_no' => $request->gst_no,
+        ]);
     
             // You can redirect the user wherever you want after creation
             return redirect()->route('users.create')->with('success', 'User created successfully!');
         }
-    }
+    
 
     public function show($id)
     {
@@ -83,25 +104,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id); // Find user of id = $id
-        $cities = [
-            'Amritsar',
-            'Ludhiana',
-            'Jalandhar',
-            'Patiala',
-            'Bathinda',
-            'Pathankot',
-            'Mohali',
-            'Hoshiarpur',
-            'Moga',
-            'Firozpur',
-            'Sangrur',
-            'Barnala',
-            'Faridkot',
-            'Fatehgarh Sahib',
-            'Rupnagar',
-            'Gurdaspur',
-            // Add more cities as needed
-        ];
+        $cities = City::all();
         return view('users.edit', ['user' => $user, 'cities' => $cities]);
     }
 
@@ -109,8 +112,8 @@ class UserController extends Controller
     {
         // Validate the form data
         $validatedData = $request->validate([
-            'mobile_number' => 'required|string|regex:/^[0-9]{10}$/|unique:users,mobile_number,'.$id,
-            'user_role' => 'required|integer|in:0,1,2,3,4,5,6,7,8,9', // Use the allowed integer values
+            'mobile_number' => 'required|integer|unique:users,mobile_number,'.$id,
+            'user_role' => 'required|integer|in:0,1,2,3,4,5,6,7,8,9,10', // Use the allowed integer values
             'city' => 'required|string|max:255',
             'gst_no' => 'nullable|string|max:255',
         ]);
@@ -143,7 +146,7 @@ class UserController extends Controller
     {
         // Validate the form data
         $validatedData = $request->validate([
-            'user_role' => 'required|integer|in:0,1,2,3,4,5,6,7,8,9', // Use the allowed integer values
+            'user_role' => 'required|integer|in:0,1,2,3,4,5,6,7,8,9,10', // Use the allowed integer values
         ]);
 
         // Update the user

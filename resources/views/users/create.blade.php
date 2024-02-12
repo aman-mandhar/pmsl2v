@@ -21,10 +21,10 @@
             </div>
 
             <div class="row mb-3">
-                <label for="mobile_number" class="col-md-4 col-form-label text-md-end">{{ __('Mobile Number') }}</label>
+                <label for="mobile_number" class="col-md-4 col-form-label text-md-end">{{ __('10 Digit Mobile Number') }}</label>
 
                 <div class="col-md-6">
-                    <input id="mobile_number" type="text" class="form-control @error('mobile_number') is-invalid @enderror" name="mobile_number" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
+                    <input id="mobile_number" type="number" class="form-control @error('mobile_number') is-invalid @enderror" name="mobile_number" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
 
 
                     @error('mobile_number')
@@ -36,10 +36,10 @@
             </div>
 
             <div class="row mb-3">
-                <label for="ref_mobile_number" class="col-md-4 col-form-label text-md-end">{{ __('Referral Mobile Number') }}</label>
+                <label for="ref_mobile_number" class="col-md-4 col-form-label text-md-end">{{ __('10 Digit Referral Mobile Number') }}</label>
             
                 <div class="col-md-6">
-                    <input id="ref_mobile_number" type="text" class="form-control @error('ref_mobile_number') is-invalid @enderror" name="ref_mobile_number" value="{{ old('ref_mobile_number', '0000000000') }}" required autocomplete="ref_mobile_number">
+                    <input id="ref_mobile_number" type="number" class="form-control @error('ref_mobile_number') is-invalid @enderror" name="ref_mobile_number" value="{{ old('ref_mobile_number', '0000000000') }}" required autocomplete="ref_mobile_number">
             
                     @error('ref_mobile_number')
                         <span class="invalid-feedback" role="alert">
@@ -122,9 +122,10 @@
             
                 <div class="col-md-6">
                     <select id="city" class="form-control @error('city') is-invalid @enderror" name="city" required>
-                        <option value="">Select nearest City</option>
+                        <option value="">Select Nearest City</option>
+                        <option value="Not Specified">Not Specified</option>
                         @foreach ($cities as $city)
-                        <option value="{{ $city }}" {{ old('city') == $city ? 'selected' : '' }}>{{ $city }}</option>
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
                         @endforeach
                     </select>
             

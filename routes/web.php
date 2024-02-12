@@ -28,6 +28,8 @@ use App\Http\Controllers\TokenController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\SubwarehouseStockController;
 use App\Http\Controllers\RetailStockController;
+use App\Http\Controllers\RetailerStockController;
+use App\Http\Controllers\CityController;
 
 
 
@@ -82,7 +84,15 @@ Route::prefix('users')->middleware(['auth', 'isCustomers'])->group(function ()
     Route::get('dashboard', [App\Http\Controllers\Customer\DashboardController::class, 'index'])->name('customerdashboard');
     });
 
-
+// City
+Route::get('/cities', [App\Http\Controllers\CityController::class, 'index'])->name('cities.index');
+Route::get('/cities/create', [App\Http\Controllers\CityController::class, 'create'])->name('cities.create');
+Route::post('/cities', [App\Http\Controllers\CityController::class, 'store'])->name('cities.store');
+Route::get('/cities/{city}', [App\Http\Controllers\CityController::class, 'show'])->name('cities.show');
+Route::get('/cities/{city}/edit', [App\Http\Controllers\CityController::class, 'edit'])->name('cities.edit');
+Route::put('/cities/{city}', [App\Http\Controllers\CityController::class, 'update'])->name('cities.update');
+Route::delete('/cities/{city}', [App\Http\Controllers\CityController::class, 'destroy'])->name('cities.destroy');
+Route::get('/cities/search', [App\Http\Controllers\CityController::class, 'search'])->name('cities.search');
 
 
  // Users
@@ -145,7 +155,7 @@ Route::post('/products/items', [ProductController::class, 'store'])->name('produ
 Route::get('/products/items/{item}/edit', [ProductController::class, 'edit'])->name('products.items.edit');
 Route::put('/products/items/{item}', [ProductController::class, 'update'])->name('products.items.update');
 Route::delete('/products/items/{id}', [ProductController::class, 'destroy'])->name('products.items.destroy');
-Route::get('/products/search', [CategoryController::class, 'search'])->name('products.search');
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 
 
 // Categories
@@ -183,6 +193,7 @@ Route::get('/products/all', [ProductController::class, 'showAllData'])->name('pr
 // Stocks
 Route::get('/stocks', [App\Http\Controllers\StockController::class, 'index'])->name('stocks.index');
 Route::get('/stocks/add/{item}', [App\Http\Controllers\StockController::class, 'add'])->name('stocks.add');
+Route::get('/stocks/add-next/{item}', [App\Http\Controllers\StockController::class, 'addNext'])->name('stocks.addNext');
 Route::post('/stocks', [App\Http\Controllers\StockController::class, 'store'])->name('stocks.store');
 Route::get('/stocks/{stock}', [App\Http\Controllers\StockController::class, 'show'])->name('stocks.show');
 Route::get('/stocks/{stock}/edit', [App\Http\Controllers\StockController::class, 'edit'])->name('stocks.edit');

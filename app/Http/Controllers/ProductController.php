@@ -14,20 +14,33 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
     public function index()
     {
         $items = Item::all();
-        return view('products.items.index', compact('items'));
+
+        return view('products.items.index', ['items' => $items]);
     }
 
     public function search(Request $request)
     {
         $search = $request->get('search');
-        $items = DB::table('items')->where('name', 'like', '%'.$search.'%')->paginate(10);
-        return view('products.items.index', compact('items'));
+    
+        $items = Item::where('items.name', 'like', '%'.$search.'%')->get();
+
+                
+                
+    
+          
+        return view('products.items.index', ['items' => $items]);
     }
 
     public function showAllData()

@@ -18,6 +18,7 @@ use App\Models\Merchant;
 use App\Models\Vendor;
 use App\Models\Token;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -51,19 +52,72 @@ class StockController extends Controller
         return view('stocks.index', ['stocks' => $stocks]);
     }
     
-    public function add(Item $item)
-    {
-        $merchants = User::where('user_role', '=', '6')->get();
-        $vendors = User::where('user_role', '=', '10')->get();
-        
-        return view('stocks.add', [
-            'item' => $item,
-            'merchants' => $merchants,
-            'vendors' => $vendors,
-            ]);
-    }
-   
+    
 
+    public function add(Request $request, $id)
+    {
+        // Retrieve the item
+        $item = Item::findOrFail($id);
+        
+        // Retrieve all merchants
+        $merchants = Merchant::all();
+        
+        // Retrieve the token for the item
+        $token = Token::where('id', $item->token_id)->firstOrFail();
+        
+        // Get the values from the previous form submission
+        $qty = $request->input('qty');
+        $pur_value = $request->input('pur_value');
+        $expences = $request->input('expences');
+        $mrp = $request->input('mrp');
+        $sale_price = $request->input('sale_price');
+    
+        // Create a new stock instance and populate it with the previous values
+        $stock = new Stock();
+        $stock->qty = $qty;
+        $stock->pur_value = $pur_value;
+        $stock->expences = $expences;
+        $stock->mrp = $mrp;
+        $stock->sale_price = $sale_price;
+    
+        // Calculations for token distribution
+        $gst = $stock->pur_value * ($item->gst / 100);
+        $gross_cost = $stock->pur_value + $stock->expences;
+        $gross_profit = $stock->sale_price - $gross_cost;
+        $spl_discount = $gross_profit * (30 / 100);
+        $gst_sale = $gross_profit * ($item->gst / 100);
+        $net_profit = $gross_profit - ($spl_discount + $gst_sale);
+        $swh = $net_profit * ($token->sub_warehouse / 100);
+        $swh_ref = $net_profit * ($token->sub_warehouse_ref / 100);
+        $ret = $net_profit * ($token->retailer / 100);
+        $ret_ref = $net_profit * ($token->retailer_ref / 100);
+        $cust = $net_profit * ($token->customer / 100);
+        $ref = $net_profit * ($token->referrer / 100);
+    
+        // Pass the item and stock to the view
+        $data = [
+            'item' => $item,
+            'stock' => $stock,
+            'merchants' => $merchants,
+            'token' => $token,
+            'gst' => $gst,
+            'gross_cost' => $gross_cost,
+            'gross_profit' => $gross_profit,
+            'spl_discount' => $spl_discount,
+            'gst_sale' => $gst_sale,
+            'net_profit' => $net_profit,
+            'swh' => $swh,
+            'swh_ref' => $swh_ref,
+            'ret' => $ret,
+            'ret_ref' => $ret_ref,
+            'cust' => $cust,
+            'ref' => $ref,
+        ];
+    
+        // Return the view with the item and stock data
+        return view('stocks.add', $data);
+    }
+    
     public function store(Request $request)
     {
         // Validate the form data

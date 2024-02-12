@@ -31,6 +31,13 @@ class Item extends Model
         return $this->hasMany(Stock::class);
     }
 
+    public function categories()
+    {
+        return $this->hasMany(ProductCategory::class);
+    }
+
+    
+
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
@@ -46,9 +53,13 @@ class Item extends Model
         return $this->belongsTo(ProductVariation::class, 'variation_id');
     }
 
-    public function token()
+    public function tokens()
     {
         return $this->belongsTo(Token::class, 'token_id');
     }
+
+   
+
+    
 
 }
